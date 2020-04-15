@@ -1,13 +1,16 @@
 # Hi-C to metagenome data pipeline
 
-Wastewater may come from different origins like municipal or urban wastewater, domestic wastewater and industrial sewage, among others. Wastewater treatment plants are the responsible for treating and sanitating these different water sources by physical, chemical and biological processes for the removal of solids, pollutants and some nutrients (Van Loosdrecht et al., 1998) . One of the public concerns is the spread of engineered DNA and proliferation of antibiotic resistances released and caused by transgenic microorganisms. This is of special interest in hotspots such as wastewater treatment plants. These hotspots are composed by a large, complex microbial community that, under certain circumstances, are capable of taking up free genetic fragments or exchange DNA between organisms. Uptake of DNA fragments by natural organisms could generate, as example, unwanted resistances against a broad range of antibiotics.
-
 Wastewater treatment plants (WWTP) operate with a natural community resembling that of natural systems (Cydzik-Kwiatkowska and Zielińska, 2016). The incoming wastewater is much more a human microbiome related and the industrial organisms are more related to a community. In the WWTP they meet and have the potential to exchange DNA between urban microbiome and natural microbiome. 
 
 The study of the populations and mobile genetic elements (MGE) from activated sludge as well as other complex environments will try to clarify (i) the emission and fate of genetic fragments from industrial settings (ii) the presence of horizontal gene transfer and tracking of mobile elements between microorganisms present in wastewater plants.
 
 So far, Hi-C is highly implemented in epigenetics and cancer studies on the biomedical field (Burton et al., 2014; Orlando et al., 2018). However, not that many studies have been published on the environmental field where DNA is constantly being released and can be exchange and transferred. However, there is an increase of papers being published in high impact journals (Stalder et al., 2019), thus showing the increasing interest on this field due to its consequences on human health and risk assessments development. 
 
+## Objectives
+
+-	Develop a Hi-C pipeline in bash using already published datasets from wastewater samples.
+-	Link antibiotic resistant genes and mobile genetic elements to specific microorganisms. 
+-	Obtain which microorganisms can be highly potential candidates to uptake, exchange and transfer targeted genes. 
 
 ## Obtain data
 
@@ -200,20 +203,13 @@ The same can be done with whatever database you want to check.
 
 ## References
 
-Burton, J. N., Liachko, I., Dunham, M. J., and Shendure, J. (2014). Species-Level Deconvolution of Metagenome Assemblies with Hi-C–Based Contact Probability Maps. G3&amp;#58; Genes|Genomes|Genetics 4, 1339–1346. doi:10.1534/g3.114.011825.
-Carattoli, A., Zankari, E., Garciá-Fernández, A., Larsen, M. V., Lund, O., Villa, L., et al. (2014). In Silico detection and typing of plasmids using plasmidfinder and plasmid multilocus sequence typing. Antimicrob. Agents Chemother. 58, 3895–3903. doi:10.1128/AAC.02412-14.
-Cydzik-Kwiatkowska, A., and Zielińska, M. (2016). Bacterial communities in full-scale wastewater treatment systems. World J. Microbiol. Biotechnol. 32, 1–8. doi:10.1007/s11274-016-2012-9.
-Demaere, M. Z., and Darling, A. E. (2019). Bin3C: Exploiting Hi-C sequencing data to accurately resolve metagenome-assembled genomes. Genome Biol. 20, 1–16. doi:10.1186/s13059-019-1643-1.
-Doster, E., Lakin, S. M., Dean, C. J., Wolfe, C., Young, J. G., Boucher, C., et al. (2020). MEGARes 2.0: a database for classification of antimicrobial drug, biocide and metal resistance determinants in metagenomic sequence data. Nucleic Acids Res. 48, D561–D569. doi:10.1093/nar/gkz1010.
-Fraser, J., Williamson, I., Bickmore, W. A., and Dostie, J. (2015). An Overview of Genome Organization and How We Got There: from FISH to Hi-C. Microbiol. Mol. Biol. Rev. 79, 347–372. doi:10.1128/mmbr.00006-15.
-Moura, A., Soares, M., Pereira, C., Leitão, N., Henriques, I., and Correia, A. (2009). INTEGRALL: A database and search engine for integrons, integrases and gene cassettes. Bioinformatics 25, 1096–1098. doi:10.1093/bioinformatics/btp105.
-Orlando, G., Law, P. J., Cornish, A. J., Dobbins, S. E., Chubb, D., Broderick, P., et al. (2018). Promoter capture Hi-C-based identification of recurrent noncoding mutations in colorectal cancer. Nat. Genet. 50, 1375–1380. doi:10.1038/s41588-018-0211-z.
-Rocha, P. P., Raviram, R., Bonneau, R., and Skok, J. A. (2016). Breaking TADs: insights into hierarchical genome organization, Epigenomics, Future Medicine. 7, 523–526. doi:10.2217/epi.15.25.Breaking.
-Stalder, T., Press, M. O., Sullivan, S., Liachko, I., and Top, E. M. (2019). Linking the resistome and plasmidome to the microbiome. ISME J., 2437–2446. doi:10.1038/s41396-019-0446-4.
-Van Loosdrecht, M. C. M., Brandse, F. A., and De Vries, A. C. (1998). Upgrading of waste water treatment processes for integrated nutrient removal the BCFS® process. Water Sci. Technol. 37, 209–217. doi:10.1016/S0273-1223(98)00290-X.
-
-
-
-
-
-
+1. Burton, J. N., Liachko, I., Dunham, M. J., and Shendure, J. (2014). Species-Level Deconvolution of Metagenome Assemblies with Hi-C–Based Contact Probability Maps. G3&amp;#58; Genes|Genomes|Genetics 4, 1339–1346. doi:10.1534/g3.114.011825.
+2. Carattoli, A., Zankari, E., Garciá-Fernández, A., Larsen, M. V., Lund, O., Villa, L., et al. (2014). In Silico detection and typing of plasmids using plasmidfinder and plasmid multilocus sequence typing. Antimicrob. Agents Chemother. 58, 3895–3903. doi:10.1128/AAC.02412-14.
+3. Cydzik-Kwiatkowska, A., and Zielińska, M. (2016). Bacterial communities in full-scale wastewater treatment systems. World J. Microbiol. Biotechnol. 32, 1–8. doi:10.1007/s11274-016-2012-9.
+4. Demaere, M. Z., and Darling, A. E. (2019). Bin3C: Exploiting Hi-C sequencing data to accurately resolve metagenome-assembled genomes. Genome Biol. 20, 1–16. doi:10.1186/s13059-019-1643-1.
+5. Doster, E., Lakin, S. M., Dean, C. J., Wolfe, C., Young, J. G., Boucher, C., et al. (2020). MEGARes 2.0: a database for classification of antimicrobial drug, biocide and metal resistance determinants in metagenomic sequence data. Nucleic Acids Res. 48, D561–D569. doi:10.1093/nar/gkz1010.
+6. Fraser, J., Williamson, I., Bickmore, W. A., and Dostie, J. (2015). An Overview of Genome Organization and How We Got There: from FISH to Hi-C. Microbiol. Mol. Biol. Rev. 79, 347–372. doi:10.1128/mmbr.00006-15.
+7. Moura, A., Soares, M., Pereira, C., Leitão, N., Henriques, I., and Correia, A. (2009). INTEGRALL: A database and search engine for integrons, integrases and gene cassettes. Bioinformatics 25, 1096–1098. doi:10.1093/bioinformatics/btp105.
+8. Orlando, G., Law, P. J., Cornish, A. J., Dobbins, S. E., Chubb, D., Broderick, P., et al. (2018). Promoter capture Hi-C-based identification of recurrent noncoding mutations in colorectal cancer. Nat. Genet. 50, 1375–1380. doi:10.1038/s41588-018-0211-z.
+9. Rocha, P. P., Raviram, R., Bonneau, R., and Skok, J. A. (2016). Breaking TADs: insights into hierarchical genome organization, Epigenomics, Future Medicine. 7, 523–526. doi:10.2217/epi.15.25.Breaking.
+10. Stalder, T., Press, M. O., Sullivan, S., Liachko, I., and Top, E. M. (2019). Linking the resistome and plasmidome to the microbiome. ISME J., 2437–2446. doi:10.1038/s41396-019-0446-4.
