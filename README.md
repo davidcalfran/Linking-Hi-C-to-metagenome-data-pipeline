@@ -73,7 +73,7 @@ We use bwa mem to align Hi-C data, with the -5, -S, and -P options. These option
 For the next steps we will need the hic_mem.bam file sorted by name. For doing that:
 
 ```sh
-sort -n hic_mem.bam > hic_mem_name.bam
+samtools sort -n hic_mem.bam > hic_mem_name.bam
 ```
 
 ## Bin our assembly with the aligned Hi-C reads using Bin3C
