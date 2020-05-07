@@ -15,6 +15,7 @@ So far, Hi-C is highly implemented in epigenetics and cancer studies on the biom
 
 ## Before we start
 
+- bwa is assumed to be installed in path
 - samtools is assumed to be installed in path
 - blastn is assumed to be installed in path
 - CheckM is assumed to be installed in path
