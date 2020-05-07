@@ -12,6 +12,8 @@ BIN3C_PATH="./bin3C/bin3C.py"
 #samtools is assumed to be installed in path
 #blastn is assumed to be installed in path
 #CheckM is assumed to be installed in path
+#Bin3C is supposed to be downloaded and binaries be all in folder callled "bin3C"
+#refseq.genomes.k21s1000.msh is supposed to be downloaded and be in current folder. Necessary for mash. 
 
 ###################
 # PARSE ARGUMENTS #
