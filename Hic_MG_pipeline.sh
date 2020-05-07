@@ -13,7 +13,7 @@ BIN3C_PATH="./bin3C/bin3C.py"
 #blastn is assumed to be installed in path
 #CheckM is assumed to be installed in path
 #Bin3C is supposed to be downloaded and binaries be all in folder callled "bin3C"
-#refseq.genomes.k21s1000.msh is supposed to be downloaded and be in current folder. Necessary for mash. 
+#refseq.genomes.k21s1000.msh is supposed to be downloaded and be in current folder. Necessary for mash.
 
 ###################
 # PARSE ARGUMENTS #
@@ -91,7 +91,7 @@ fi
 ###Binning Quality Control with CheckM
 
 if [[ $start < 2 ]]; then
-# STEP 7: Generate a folder with the quality control about the binning process
+# STEP 7: Generate a folder with the quality control about the binning process. It can be used for "removing" low quality bins from folder and start over STEP 8
 checkm lineage_wf -x fna bin3c_clust/fasta fasta_bins_out
 fi
 
@@ -174,7 +174,7 @@ fi
 ###Generate the file showing the links between aligned contigs between the assembly and the Hi-C reads
 
 if [[ $start < 2 ]]; then
-# STEP 20: Generate alignment to links file
+# STEP 20: Generate alignment to links file necessary for STEP 21 scripts.
 samtools view hic_mem_name.bam | awk '{hash[$3"\t"$7]++}END{for (x in hash) {print x"\t"hash[x]/2}}'> contig_links.txt
 fi
 
