@@ -12,12 +12,29 @@ So far, Hi-C is highly implemented in epigenetics and cancer studies on the biom
 -	Link antibiotic resistant genes and mobile genetic elements to specific microorganisms. 
 -	Obtain which microorganisms can be highly potential candidates to uptake, exchange and transfer targeted genes. 
 
+
+## Before we start
+
+- samtools is assumed to be installed in path
+- blastn is assumed to be installed in path
+- CheckM is assumed to be installed in path
+- Bin3C binaries are supposed to be downloaded and be saved in current folder as a folder named "bin3C"
+- refseq.genomes.k21s1000.msh is supposed to be downloaded and be in current folder. Necessary for mash. 
+
 ## Run the code
 
 ```sh
 bash Hic_MG_pipeline.sh assembly.fa HiC_1.fastq HiC_2.fastq  megares_database_v1.01.fasta enterobacteriaceae.fsa integrase_database.fa 1
 ```
 
+Where:
+
+- assembly.fa is your metagenome assembly generated with MEGAHIT, SPADES, etc
+- HiC_1/2.fastq are your hic sequencing data.
+- megares_database_v1.01.fasta is the antibiotic resistance genes database
+- enterobacteriaceae.fsa is the plasmid database
+- integrase_database.fa is the integrons database
+- "1" is the number that starts running the script
 
 # The idea behind the code
 
