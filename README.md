@@ -12,6 +12,15 @@ So far, Hi-C is highly implemented in epigenetics and cancer studies on the biom
 -	Link antibiotic resistant genes and mobile genetic elements to specific microorganisms. 
 -	Obtain which microorganisms can be highly potential candidates to uptake, exchange and transfer targeted genes. 
 
+## Run the code
+
+```sh
+bash Hic_MG_pipeline.sh assembly.fa HiC_1.fastq HiC_2.fastq  megares_database_v1.01.fasta enterobacteriaceae.fsa integrase_database.fa 1
+```
+
+
+# The idea behind the code
+
 ## Obtain data
 
 Normally, metagenomics and Hi-C sequencing data are uploaded in NCBI-SRA. It will be needed to download and dump SRA datasets into fastq files. 
