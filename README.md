@@ -19,7 +19,7 @@ So far, Hi-C is highly implemented in epigenetics and cancer studies on the biom
 - blastn is assumed to be installed in path
 - CheckM is assumed to be installed in path
 - Bin3C binaries are supposed to be downloaded and be saved in current folder as a folder named "bin3C"
-- refseq.genomes.k21s1000.msh is supposed to be downloaded and be in current folder. Necessary for mash. 
+- refseq.genomes.k21s1000.msh is supposed to be downloaded and be in current folder. Necessary for mash. It can be downloaded here: https://mash.readthedocs.io/en/latest/tutorials.html important to save is with the following name: refseq.genome.k21s1000.msh
 
 ## Run the code
 
