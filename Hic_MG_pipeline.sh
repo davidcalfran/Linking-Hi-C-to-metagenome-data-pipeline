@@ -19,6 +19,11 @@ BIN3C_PATH="./bin3C/bin3C.py"
 # PARSE ARGUMENTS #
 ###################
 
+if [[ ! $(type bwa 2> /dev/null) ]] ; then echo "bwa program is not in the \$PATH"; fi
+if [[ ! $(type blastn 2> /dev/null) ]] ; then echo "blastn program is not in the \$PATH"; fi
+if [[ ! $(type samtools 2> /dev/null) ]] ; then echo "samtools program is not in the \$PATH"; fi
+if [[ ! $(type checkm 2> /dev/null) ]] ; then echo "checkm program is not in the \$PATH"; fi
+
 if [[ -z $1 ]]; then
     echo "first argument should be an ASSEMBLY in fasta"
     exit 1

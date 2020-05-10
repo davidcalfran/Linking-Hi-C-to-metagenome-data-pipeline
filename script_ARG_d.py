@@ -9,7 +9,7 @@ Created on Thu Apr 23 17:23:43 2020
 import pandas as pd 
 import glob
 
-path = r"/Volumes/TOSHIIBA/TFM BIOINFORMATICA/bin3c_clust/fasta" # use your path
+path = r"./bin3c_clust/fasta" # use your path # use your path
 all_files = glob.glob(path + "/*.fna")
 #
 
