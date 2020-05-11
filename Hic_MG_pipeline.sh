@@ -231,9 +231,9 @@ fi
 
 if [[ $start < 2 ]]; then
 # STEP 25: Clean file part II: substract column by column and generate the final file
-grep "CL" ARG_final_results_R.txt | awk 'BEGIN{FS=".fna.gz"}; {print $2}' | awk 'BEGIN{FS=".1 "}; {print $2}' |awk '{print $1,$2}' > ARG_species.txt #NO SE COMO LIMPIAR CORRECTAMENTE ESTO. PREGUNTAR A ANDREU
-awk '{print $4,$5}' plasmid_final_results_R_clean.txt > plasmid_species.txt
-awk '{print $4,$5}' integrases_final_results_R_clean.txt > integrases_species.txt
+awk -F"fna.gz" '{print $2}' ARG_final_results_R.txt | awk -F"." '{print $2}' | awk -F" " '{print $2" "$3}' > ARG_species.txt
+awk -F"fna.gz" '{print $2}' plasmid_final_results_R.txt | awk -F"." '{print $2}' | awk -F" " '{print $2" "$3}' > plasmid_species.txt
+awk -F"fna.gz" '{print $2}' integrases_final_results_R.txt | awk -F"." '{print $2}' | awk -F" " '{print $2" "$3}' > integrases_species.txt
 awk '{print $1}' ARG_final_results_R_clean.txt > ARG_cluster.txt
 awk '{print $1}' plasmid_final_results_R_clean.txt > plasmid_cluster.txt
 awk '{print $1}' integrases_final_results_R_clean.txt > integrases_cluster.txt
