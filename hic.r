@@ -3,7 +3,7 @@ library(ggplot2)
 
 #ARG_genes
 
-dataARG<-read.csv("/Volumes/TOSHIIBA/TFM BIOINFORMATICA/ARG_R_clean.csv", header = TRUE, sep="\t")
+dataARG<-read.csv("./ARG_R_clean.csv", header = TRUE, sep="\t")
 
 LOG.normalizedabun<-log10(dataARG$NormalizedSum)
 mine.heatmap<-ggplot(data=dataARG, mapping = aes(x=ARG,
@@ -51,7 +51,7 @@ ggsave("heatmapARG_family.tiff", units="in", width=30, height=30, dpi=300, compr
 
 #PLASMIDS
 
-dataARG<-read.csv("/Volumes/TOSHIIBA/TFM BIOINFORMATICA/plasmid_R_clean.csv", header = TRUE, sep="\t")
+dataARG<-read.csv("./plasmid_R_clean.csv", header = TRUE, sep="\t")
 
 LOG.normalizedabun<-log10(dataARG$NormalizedSum)
 mine.heatmap<-ggplot(data=dataARG, mapping = aes(x=EVENT,
@@ -75,7 +75,7 @@ ggsave("heatmapPLASMID.tiff", units="in", width=30, height=30, dpi=300, compress
 
 #INTEGRASES
 
-dataARG<-read.csv("/Volumes/TOSHIIBA/TFM BIOINFORMATICA/integrases_R_clean.csv", header = TRUE, sep="\t")
+dataARG<-read.csv("./integrases_R_clean.csv", header = TRUE, sep="\t")
 
 LOG.normalizedabun<-log10(dataARG$NormalizedSum)
 mine.heatmap<-ggplot(data=dataARG, mapping = aes(x=EVENT,
