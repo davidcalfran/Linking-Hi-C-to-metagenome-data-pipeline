@@ -233,7 +233,7 @@ Then, it will be needed to link the best hit from the blastn analysis (linked to
 
 In order to generate the heatmap and the phylogenetic tree, we used taxize and ggplot and it can be downloaded and adapted from the heatmap_phylogny_code.rmd here supplemented in order to get figures such as:
 
-
+https://github.com/davidcalfran/Linking-Hi-C-to-metagenome-data-pipeline/issues/1#issue-642555465
 
 ## References
 
