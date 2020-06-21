@@ -1,8 +1,8 @@
 # Hi-C to metagenome data pipeline
 
-Wastewater treatment plants (WWTP) operate with a natural community resembling that of natural systems (Cydzik-Kwiatkowska and Zielińska, 2016). The incoming wastewater is much more a human microbiome related and the industrial organisms are more related to a community. In the WWTP they meet and have the potential to exchange DNA between urban microbiome and natural microbiome. 
+Wastewater treatment plants (WWTP) operate with a natural community resembling that of natural systems (Cydzik-Kwiatkowska and Zielińska, 2016). The incoming wastewater is much more a human gut microbiome related and the industrial organisms are more related to a community. In the WWTP they meet and have the potential to exchange DNA between urban microbiome and natural microbiome. 
 
-The study of the populations and mobile genetic elements (MGE) from activated sludge as well as other complex environments will try to clarify (i) the emission and fate of genetic fragments from industrial settings (ii) the presence of horizontal gene transfer and tracking of mobile elements between microorganisms present in wastewater plants.
+The study of the populations and mobile genetic elements (MGE) from activated sludge as well as other complex environments will try to clarify (i) the emission and fate of genetic fragments from industrial settings (ii) the presence of horizontal gene transfer and (iii) tracking of mobile elements between microorganisms present in wastewater plants.
 
 So far, Hi-C is highly implemented in epigenetics and cancer studies on the biomedical field (Burton et al., 2014; Orlando et al., 2018). However, not that many studies have been published on the environmental field where DNA is constantly being released and can be exchange and transferred. However, there is an increase of papers being published in high impact journals (Stalder et al., 2019), thus showing the increasing interest on this field due to its consequences on human health and risk assessments development. 
 
@@ -38,7 +38,7 @@ Where:
 - integrase_database.fa is the integrons database
 - "1" is the number that starts running the script
 
-# The idea behind the code
+# The idea behind the script
 
 ## Obtain data
 
@@ -62,7 +62,7 @@ http://www.usadellab.org/cms/?page=trimmomatic
 
 ## Metagenome Assembly
 
-For metagenome assembly, we used MEGAHIT (there are many others). The parameters were the following:
+For metagenome assembly, we used MEGAHIT (there are many others such as SPADES). The parameters were the following:
 
 ```
 k_max: 99
@@ -219,6 +219,7 @@ blastn -db megares_database_v1.01.fasta -query merged_fasta.fna -perc_identity 8
 
 cat results.txt |awk '/hits found/{getline;print}' | grep -v "#" > ARG_top_hits.txt
 ```
+This can be changed for -evalue instead of perc_identity. If so, 10E-20 would strongly select the best hit. 
 
 This will give us a text file with the best antibiotic resistance gene per cluster and bin:
 
@@ -227,6 +228,11 @@ CL0001_0176     Rif|CP00034.1|gene3741|Rifampin|Rifampin-resistant_beta
 ```
 
 The same can be done with whatever database you want to check. 
+
+Then, it will be needed to link the best hit from the blastn analysis (linked to a contig) to the bins generated and normalize the sum of interactions by bin number of contigs in order to get a representation using the Scripts (Script_ARG_d.py) and R code (hic.r) uploaded in this pipeline. 
+
+In order to generate the heatmap and the phylogenetic tree, we used taxize and ggplot and it can be downloaded and adapted from the heatmap_phylogny_code.rmd here supplemented in order to get figures such as:
+
 
 
 ## References
