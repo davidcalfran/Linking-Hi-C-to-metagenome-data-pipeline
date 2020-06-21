@@ -247,3 +247,9 @@ https://github.com/davidcalfran/Linking-Hi-C-to-metagenome-data-pipeline/issues/
 8. Orlando, G., Law, P. J., Cornish, A. J., Dobbins, S. E., Chubb, D., Broderick, P., et al. (2018). Promoter capture Hi-C-based identification of recurrent noncoding mutations in colorectal cancer. Nat. Genet. 50, 1375–1380. doi:10.1038/s41588-018-0211-z.
 9. Rocha, P. P., Raviram, R., Bonneau, R., and Skok, J. A. (2016). Breaking TADs: insights into hierarchical genome organization, Epigenomics, Future Medicine. 7, 523–526. doi:10.2217/epi.15.25.Breaking.
 10. Stalder, T., Press, M. O., Sullivan, S., Liachko, I., and Top, E. M. (2019). Linking the resistome and plasmidome to the microbiome. ISME J., 2437–2446. doi:10.1038/s41396-019-0446-4.
+
+
+
+
+
+David Calderón Franco
