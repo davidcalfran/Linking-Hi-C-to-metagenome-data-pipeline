@@ -1,0 +1,533 @@
+---
+title: "Plasmid to host interaction"
+author: "David Calderon Franco"
+date: "4/27/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Documento del script ARG
+
+```{r}
+dataARG<-read.csv("/Volumes/TOSHIIBA/TFM BIOINFORMATICA/ARG_R_clean.csv", header = TRUE, sep="\t")
+#dataARG<-subset(dataARG,Number.of.Contigs>=100)
+
+head(dataARG)
+
+```
+
+```{r}
+library(ggplot2)
+LOG.normalizedabun<-log10(dataARG$NormalizedSum)
+mine.heatmap<-ggplot(data=dataARG, mapping = aes(x=ARG,
+                                              y=SPECIES,
+                                              fill=LOG.normalizedabun)) +
+  geom_tile() + 
+  scale_fill_gradient(name = "Log(Normalized sum of interactions)",
+                      low = "#003366",
+                      high = "#EFEDC2") +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.line = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text.x = element_text(angle=45, size=20, hjust=1),
+    axis.text.y = element_text(size=20, hjust=1)
+  )
+
+
+mine.heatmap
+
+ggsave("heatmapARGtest.tiff", units="in", width=30, height=30, dpi=300, compression = 'lzw')
+```
+
+```{r}
+library(taxize)
+names<-as.character(dataARG$SPECIES)
+class(names)
+test<-tax_name(query=c(names), get= c("phylum","genus"), db="ncbi")
+```
+
+
+```{r}
+ARG_genus<-test$genus
+ARG_phylum<-test$phylum
+dataARG1<-cbind(dataARG, ARG_genus, ARG_phylum)
+dataARG1
+```
+
+```{r}
+library(ggplot2)
+LOG.normalizedabun<-log10(dataARG1$NormalizedSum)
+mine.heatmap<-ggplot(data=dataARG1, mapping = aes(x=ARG,
+                                              y=SPECIES,
+                                              fill=LOG.normalizedabun)) +
+  geom_tile() + 
+  scale_fill_gradient(name = "Log(Normalized sum of interactions)",
+                      low = "#003366",
+                      high = "#EFEDC2") +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.line = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text.x = element_text(angle=45, size=20, hjust=1),
+    axis.text.y = element_text(size=20, hjust=1)
+  )
+
+
+mine.heatmap
+
+ggsave("heatmapARG1test.tiff", units="in", width=30, height=30, dpi=300, compression = 'lzw')
+```
+
+#Remove duplicates for tree
+
+```{r}
+library(dplyr)
+names<-as.data.frame(dataARG1$SPECIES)
+names<-distinct(names)
+
+names
+```
+
+```{r}
+names<-as.character(names[,1])
+```
+
+##Generate the classification vector
+```{r}
+tree_ARG<-classification(names, db="ncbi")
+
+```
+
+
+## Generat tree
+```{r}
+library(taxize)
+tree_ARG_real<-class2tree(tree_ARG, check=TRUE, varstep = TRUE)
+
+tiff(file="tree_ARG.tiff",
+width=15, height=30, units="in", res=300)
+
+plot(tree_ARG_real)
+
+dev.off()
+```
+
+```{r}
+tree_ARG_real$phylo$tip.label
+```
+
+
+## Obtain a vector with the species order of appearance in the tree
+
+```{r}
+order_ARG<-rev(tree_ARG_real$phylo$tip.label[tree_ARG_real$phylo$edge[tree_ARG_real$phylo$edge[,2] <= 91,2]])
+order_ARG
+```
+
+```{r}
+length(df_corrected)
+```
+
+
+```{r}
+df<-data.frame(dataARG1)
+df_corrected<-gsub("\\b[sp]{1,2}\\b", "sp.", df$SPECIES) #This will add a point after every sp 
+dataARG2<-cbind(df,df_corrected)
+dataARG2
+```
+
+```{r}
+level_order<-rev(order_ARG)
+level_order
+```
+
+```{r}
+dataARG2
+```
+
+
+
+```{r}
+library(ggplot2)
+
+
+LOG.normalizedabun<-log10(dataARG2$NormalizedSum)
+mine.heatmap<-ggplot(data=dataARG2, mapping = aes(x=ARG,
+                                              y=factor(df_corrected, level=level_order),
+                                              fill=LOG.normalizedabun)) +
+  geom_tile() + 
+  scale_fill_gradient(name = "",
+                      low = "#003366",
+                      high = "#FFD700",
+                      ) + 
+
+  labs(x="Antibiotic Resistance Genes (ARG)", y="Species") +
+
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.line = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text.x = element_text(angle=45, size=20, hjust=1),
+    axis.text.y = element_text(size=30, hjust=1),
+    legend.key.size = unit(1,"in"),
+    legend.text = element_text(size=30),
+    axis.title  = element_text(size=30)
+  ) 
+
+mine.heatmap
+
+ggsave("heatmapARGtest3.tiff", units="in", width=40, height=30, dpi=300, compression = 'lzw')
+```
+
+# Documento del script plasmid
+
+```{r}
+dataplasmid<-read.csv("/Volumes/TOSHIIBA/TFM BIOINFORMATICA/plasmid_R_clean.csv", header = TRUE, sep="\t")
+
+head(dataplasmid)
+
+```
+
+```{r}
+library(ggplot2)
+LOG.normalizedabun<-log10(dataplasmid$NormalizedSum)
+mine.heatmap<-ggplot(data=dataplasmid, mapping = aes(x=EVENT,
+                                              y=SPECIES,
+                                              fill=LOG.normalizedabun)) +
+  geom_tile() + 
+  scale_fill_gradient(name = "Log(Normalized sum of interactions)",
+                      low = "#003366",
+                      high = "#EFEDC2") +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.line = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text.x = element_text(angle=45, size=20, hjust=1),
+    axis.text.y = element_text(size=20, hjust=1)
+  )
+
+
+mine.heatmap
+
+ggsave("heatmapplasmid.tiff", units="in", width=30, height=30, dpi=300, compression = 'lzw')
+```
+
+```{r}
+library(taxize)
+names<-as.character(dataplasmid$SPECIES)
+class(names)
+test<-tax_name(query=c(names), get= c("phylum","genus"), db="ncbi")
+```
+
+
+```{r}
+plasmid_genus<-test$genus
+plasmid_phylum<-test$phylum
+dataplasmid1<-cbind(dataplasmid, plasmid_genus, plasmid_phylum)
+dataplasmid1
+```
+
+```{r}
+library(ggplot2)
+LOG.normalizedabun<-log10(dataplasmid1$NormalizedSum)
+mine.heatmap<-ggplot(data=dataplasmid1, mapping = aes(x=EVENT,
+                                              y=SPECIES,
+                                              fill=LOG.normalizedabun)) +
+  geom_tile() + 
+  scale_fill_gradient(name = "Log(Normalized sum of interactions)",
+                      low = "#003366",
+                      high = "#EFEDC2") +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.line = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text.x = element_text(angle=45, size=20, hjust=1),
+    axis.text.y = element_text(size=20, hjust=1)
+  )
+
+
+mine.heatmap
+
+ggsave("heatmapplasmid1.tiff", units="in", width=30, height=30, dpi=300, compression = 'lzw')
+```
+
+#Remove duplicates for tree
+
+```{r}
+library(dplyr)
+names<-as.data.frame(dataplasmid1$SPECIES)
+names<-distinct(names)
+
+names
+```
+
+```{r}
+names<-as.character(names[,1])
+```
+
+##Generate the classification vector
+```{r}
+tree_plasmid<-classification(names, db="ncbi")
+
+```
+
+
+## Generat tree
+```{r}
+library(taxize)
+tree_plasmid_real<-class2tree(tree_plasmid, check=TRUE, varstep = TRUE)
+
+tiff(file="tree_plasmid.tiff",
+width=7, height=15, units="in", res=300)
+
+plot(tree_plasmid_real)
+
+dev.off()
+```
+
+
+## Obtain a vector with the species order of appearance in the tree
+
+```{r}
+order_plasmid<-rev(tree_plasmid_real$phylo$tip.label[tree_plasmid_real$phylo$edge[tree_plasmid_real$phylo$edge[,2] <= 12,2]])
+order_plasmid
+```
+
+```{r}
+length(df_corrected)
+```
+
+
+```{r}
+df<-data.frame(dataplasmid1)
+df_corrected<-gsub("\\b[sp]{1,2}\\b", "sp.", df$SPECIES) #This will add a point after every sp 
+dataplasmid2<-cbind(df,df_corrected)
+dataplasmid2
+```
+
+```{r}
+level_order<-rev(order_plasmid)
+level_order
+```
+
+```{r}
+dataplasmid2
+```
+
+
+
+```{r}
+library(ggplot2)
+
+
+LOG.normalizedabun<-log10(dataplasmid2$NormalizedSum)
+mine.heatmap<-ggplot(data=dataplasmid2, mapping = aes(x=EVENT,
+                                              y=factor(df_corrected, level=level_order),
+                                              fill=LOG.normalizedabun)) +
+  geom_tile() + 
+  scale_fill_gradient(name = "",
+                      low = "#003366",
+                      high = "#FFD700",
+                      ) + 
+
+  labs(x="Plasmid", y="Species") +
+
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.line = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text.x = element_text(angle=45, size=30, hjust=1),
+    axis.text.y = element_text(size=30, hjust=1),
+    legend.key.size = unit(1,"in"),
+    legend.text = element_text(size=30),
+    axis.title  = element_text(size=30)
+  ) 
+
+mine.heatmap
+
+ggsave("heatmapplasmid3.tiff", units="in", width=30, height=30, dpi=300, compression = 'lzw')
+```
+
+
+# Documento del script integrones
+
+```{r}
+dataint<-read.csv("/Volumes/TOSHIIBA/TFM BIOINFORMATICA/integrases_R_clean.csv", header = TRUE, sep="\t")
+
+head(dataint)
+
+```
+
+```{r}
+library(ggplot2)
+LOG.normalizedabun<-log10(dataint$NormalizedSum)
+mine.heatmap<-ggplot(data=dataint, mapping = aes(x=EVENT,
+                                              y=SPECIES,
+                                              fill=LOG.normalizedabun)) +
+  geom_tile() + 
+  scale_fill_gradient(name = "Log(Normalized sum of interactions)",
+                      low = "#003366",
+                      high = "#EFEDC2") +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.line = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text.x = element_text(angle=45, size=20, hjust=1),
+    axis.text.y = element_text(size=20, hjust=1)
+  )
+
+
+mine.heatmap
+
+ggsave("heatmapint.tiff", units="in", width=30, height=30, dpi=300, compression = 'lzw')
+```
+
+```{r}
+library(taxize)
+names<-as.character(dataint$SPECIES)
+class(names)
+test<-tax_name(query=c(names), get= c("phylum","genus"), db="ncbi")
+```
+
+
+```{r}
+int_genus<-test$genus
+int_phylum<-test$phylum
+dataint1<-cbind(dataint, int_genus, int_phylum)
+dataint1
+```
+
+```{r}
+library(ggplot2)
+LOG.normalizedabun<-log10(dataint1$NormalizedSum)
+mine.heatmap<-ggplot(data=dataint1, mapping = aes(x=EVENT,
+                                              y=SPECIES,
+                                              fill=LOG.normalizedabun)) +
+  geom_tile() + 
+  scale_fill_gradient(name = "Log(Normalized sum of interactions)",
+                      low = "#003366",
+                      high = "#EFEDC2") +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.line = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text.x = element_text(angle=45, size=20, hjust=1),
+    axis.text.y = element_text(size=20, hjust=1)
+  )
+
+
+mine.heatmap
+
+ggsave("heatmapint1.tiff", units="in", width=30, height=30, dpi=300, compression = 'lzw')
+```
+
+#Remove duplicates for tree
+
+```{r}
+library(dplyr)
+names<-as.data.frame(dataint1$SPECIES)
+names<-distinct(names)
+
+names
+```
+
+```{r}
+names<-as.character(names[,1])
+```
+
+##Generate the classification vector
+```{r}
+tree_int<-classification(names, db="ncbi")
+
+```
+
+
+## Generat tree
+```{r}
+library(taxize)
+tree_int_real<-class2tree(tree_int, check=TRUE, varstep = TRUE)
+
+tiff(file="tree_int.tiff",
+width=7, height=15, units="in", res=300)
+
+plot(tree_int_real)
+
+dev.off()
+```
+
+
+## Obtain a vector with the species order of appearance in the tree
+
+```{r}
+order_int<-rev(tree_int_real$phylo$tip.label[tree_int_real$phylo$edge[tree_int_real$phylo$edge[,2] <= 11,2]])
+order_int
+```
+
+
+```{r}
+df<-data.frame(dataint1)
+df_corrected<-gsub("\\b[sp]{1,2}\\b", "sp.", df$SPECIES) #This will add a point after every sp 
+dataint2<-cbind(df,df_corrected)
+dataint2
+```
+
+```{r}
+level_order<-rev(order_int)
+level_order
+```
+
+```{r}
+dataint2
+```
+
+
+
+```{r}
+library(ggplot2)
+
+
+LOG.normalizedabun<-log10(dataint2$NormalizedSum)
+mine.heatmap<-ggplot(data=dataint2, mapping = aes(x=EVENT,
+                                              y=factor(df_corrected, level=level_order),
+                                              fill=LOG.normalizedabun)) +
+  geom_tile() + 
+  scale_fill_gradient(name = "",
+                      low = "#003366",
+                      high = "#FFD700",
+                      ) + 
+
+  labs(x="Integrons", y="Species") +
+
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.line = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text.x = element_text(angle=45, size=30, hjust=1),
+    axis.text.y = element_text(size=30, hjust=1),
+    legend.key.size = unit(1,"in"),
+    legend.text = element_text(size=30),
+    axis.title  = element_text(size=30)
+  ) 
+
+mine.heatmap
+
+ggsave("heatmapint3.tiff", units="in", width=30, height=30, dpi=300, compression = 'lzw')
+```
+
+
+
+
+
